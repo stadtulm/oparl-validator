@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+	<!-- Embedding stylesheets and scripts -->
+	<head>
+		<link rel="stylesheet" href="style.css">
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+		<script type="application/javascript" src="../scripts/membership.js"></script>
+	</head>
+	
+	<body>
+		<!-- Navigation bar with links to related pages -->
+		<div>
+			<nav id="navbar">			
+				<ul>				
+					<li><a href="https://oparl.org/"><img src="../images/oparl.png" alt="OParl" height="60px" style="float:left"></a></li>
+					<li><a href="person.html">Personen</a></li>
+					<li><a href="organization.html">Organisationseinheiten</a></li>
+					<li><a href="meeting.html">Sitzungen</a></li>
+					<li><a href="files.html">Dateien</a></li>
+					<li><a href="paper.html">Papers</a></li>
+					<li><a href="agendaItem.html">TOP</a></li>
+					<li id="current">Mitgliedschaften</li>
+					<li><a href="consultation.html">Besprechungen</a></li>
+					<li><a href="https://www.ulm.de/"><img src="../images/ulm.png" alt="Stadt Ulm" height="60px" style="float:right; margin-left: 30px;" ></a></li>
+				</ul>			
+			</nav>
+		</div>
+		
+		<!-- Separation line -->
+		<div id="split">
+			<br><hr><br>
+		</div>
+
+		<!-- Area with further information -->
+		<div id="topbar">
+			<table id="info">
+				<tr><td>Body:</td><td><a href="https://buergerinfo.ulm.de/oparl/bodies/0001">https://buergerinfo.ulm.de/oparl/bodies/0001</a></td></tr>
+				<tr><td>Mitgliedschaften:</td><td><a href="https://buergerinfo.ulm.de/oparl/bodies/0001/memberships">https://buergerinfo.ulm.de/oparl/bodies/0001/memberships</a></td></tr>
+				<tr><td>Schema</td><td><a href="https://schema.oparl.org/1.1/Membership">https://schema.oparl.org/1.1/Membership</a></td></tr>
+			</table>
+			<table id="notes">
+				<tr><td>Ausgew&auml;hlte Spalten:</td><td>Relevante Informationen zur Mitgliedschaft</td></tr>
+				<tr><td>Spalte &quot;Fehler:&quot;</td><td>&Uuml;berpr&uuml;fungen im Hintergrund &uuml;ber alle Daten des Schema</td></tr>
+			</table>
+		</div>
+
+		<!-- Separation line -->
+		<div id="split">
+			<br><hr><br>
+		</div>
+		
+		<!-- Table with output of selected data -->
+		<div>
+			<table id="membershipTable">
+				<thead>
+					<!-- Write table headings and call the sort function on click -->
+					<tr>
+						<th onclick="sortTable(0)">ID &#9650;&#9660;</th>
+						<th onclick="sortTable(1)">Person &#9650;&#9660;</th>
+						<th onclick="sortTable(2)">Organisation &#9650;&#9660;</th>
+						<th onclick="sortTable(3)">Rolle &#9650;&#9660;</th>
+						<th onclick="sortTable(4)">Abstimmungsrecht &#9650;&#9660;</th>
+						<th onclick="sortTable(5)">Start &#9650;&#9660;</th>
+						<th onclick="sortTable(6)">Ende &#9650;&#9660;</th>
+						<th onclick="sortTable(7)">Im Auftrag von &#9650;&#9660;</th>
+						<th onclick="sortTable(8)">Korrekt &#9650;&#9660;</th>
+						<th onclick="sortTable(9)" style="width: 18%;">Fehler &#9650;&#9660;</th>
+					</tr>
+					<!-- Inserting search fields for browsing the columns -->
+					<tr class="filters">
+						<th> <input class="searchInput" value="Suche..."></th>
+						<th> <input class="searchInput" value="Suche..."></th>
+						<th> <input class="searchInput" value="Suche..."></th>
+						<th> <input class="searchInput" value="Suche..."></th>
+						<th> <input class="searchInput" value="Suche..."></th>
+						<th> <input class="searchInput" value="Suche..."></th>
+						<th> <input class="searchInput" value="Suche..."></th>
+						<th> <input class="searchInput" value="Suche..."></th>
+						<th> <input class="searchInput" value="Suche..."></th>
+						<th> <input class="searchInput" value="Suche..."></th>
+					</tr>
+				</thead>
+				<tbody id="membershipBody"></tbody>
+			</table>
+		</div>
+		
+			
+		<!-- Function to sort the table by columns -->
+		<script>
+			function sortTable(n) {
+				var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+				table = document.getElementById("membershipBody");
+				switching = true;
+				// Sort direction: ascending
+				dir = "asc";
+				// Switching until no more switching needs to be performed 
+				while (switching) {
+					// start: no switching is done
+					switching = false;
+					rows = table.rows;
+					//Loop through all table rows in table body
+					for (i = 0; i < (rows.length - 1); i++) {
+						//start by saying there should be no switching:
+						shouldSwitch = false;
+						// Get two consecutive elements of current and next row to compare
+						x = rows[i].getElementsByTagName("TD")[n];
+						y = rows[i + 1].getElementsByTagName("TD")[n];
+						if (n == 0) {
+							x = parseInt(x.innerHTML);						
+							y = parseInt(y.innerHTML);
+						} else {
+							x = x.innerHTML.toLowerCase();
+							y = y.innerHTML.toLowerCase();
+						}					
+						// check if the two rows needs to switch place, based on the direction
+						if (dir == "asc") {
+							if (x > y) {
+								//if they need to switch, set shouldSwitch as true and break loop:
+								shouldSwitch = true;
+								break;
+							}
+						} else if (dir == "desc") {
+							if (x < y) {
+								//if they need to switch, set shouldSwitch as true and break loop:
+								shouldSwitch = true;
+								break;
+							}
+						}
+					}
+					if (shouldSwitch) {
+						// If switch needs to be performed, change the two rows and add switch to counter
+						rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+						switching = true;
+						switchcount++;
+					} else {
+						// If no switching has been done AND the direction is "asc", set the direction to "desc" and run the while loop again.
+						if (switchcount == 0 && dir == "asc") {
+							dir = "desc";
+							switching = true;
+						}
+					}
+				}
+			}
+		</script>
+
+		<!-- Function to search the table by columns -->
+		<script>
+			// Search for value from the search field starts when the key is released
+			$(".searchInput").keyup(function() {
+				var data = this.value.split(" ");
+				var hit = $("#membershipBody").find("tr");
+				// If the search field is empty, all lines are displayed
+				if (this.value == "") {
+					hit.show();
+					return;
+				}
+				hit.hide();
+				// Searching the individual rows for cells containing the searched value displaying the rows
+				hit.filter(function(i, v) {
+					var $t = $(this)
+					for (var d = 0; d < data.length; ++d) {
+						if ($t.text().toLowerCase().indexOf(data[d]) > -1) { //(":contains('" + data[d] + "')")) {
+							return true;
+						}
+					}
+					return false;
+				})
+				.show();
+			})
+			// Highlighting the matches
+			.focus(function () {
+				this.value="";
+				$(this).css({
+					"color": "black"
+				});
+				$(this).unbind('focus');
+			}).css({
+				"color": "#C0C0C0"
+			});
+		</script>
+
+	</body>
+</html>

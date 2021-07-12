@@ -1,0 +1,127 @@
+#navbar {
+    width: 100%;
+    margin: 0px;
+    text-align: center;
+    height: 80px;
+    background-color: lightgray;
+}
+
+#navbar ul {
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;    
+}
+
+#navbar ul li {
+    padding: 0px;
+    margin: 0px;
+    display: inline;
+    color: black;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#navbar ul li a:link {
+    padding: 2px 5px 2px 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 26px;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#navbar ul li a:hover {
+    color: white;
+}
+
+#navbar ul li a img {
+    padding: 10px 5px 0 5px;
+}
+
+#navbar ul li a img:hover {
+    border: none;
+}
+
+#navbar ul #current {
+    color: black;
+    font-size: 30px;
+    text-decoration: underline;
+    font-weight: bolder;
+}
+
+#topbar {
+    width: 100%;
+    margin-bottom: 60px;
+}
+
+#split {
+    margin-top: 20px;
+    width: 100%;
+}
+
+table {
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table th, td {
+    border-width: 1px;
+    border-color: gray;
+    border-style: solid;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+th {
+    cursor: pointer;
+    padding: 5px 0px 5px 0px;
+    background-color: #dddddd;
+}
+
+td {
+    cursor: text;
+    padding-left: 20px;
+}
+
+tr:hover {
+    background-color: lightgray;
+}
+
+#info {
+    border: none;
+    width: 20%;
+    float: left;
+    margin-left: 2%;
+}
+
+#info td {
+    border: none;
+}
+
+#info tr:hover {
+    background-color: white;
+}
+
+#notes {
+    border: none;
+    width: 40%;
+    float: right;
+    margin-right: 2%;
+}
+
+#notes td {
+    border: none;
+}
+
+#notes tr:hover {
+    background-color: white;
+}
+
+.searchInput {
+    width: 50%;
+}
